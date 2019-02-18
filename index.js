@@ -2,6 +2,10 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const config = require('./config')
+
+const { birthday } = require('./controllers/message')
 
 // Inicializar el sdk
 const admin = require('firebase-admin')
@@ -11,11 +15,12 @@ admin.initializeApp({
   databaseURL: 'https://pruebawpn.firebaseio.com'
 })
 
-// This registration token comes from the client FCM SDKs.
+// This registration token comes from the client FCM SDKs
 const registrationToken = process.env.CLIENT_TOKEN
 
 const app = express()
 app.use(cors())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
@@ -25,7 +30,19 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/lorem.html')
 })
 
-app.get('/send-push', (req, res) => {
+// registro de tokens
+app.post('/register', (req, res) => {
+  
+})
+
+
+app.put('/register', (req, res) => {
+
+})
+
+app.get('/send-birthday-notifications', birthday)
+
+app.get('/send', (req, res) => {
   console.log('mandar mensaje push')
   // See documentation on defining a message payload.
   const message = {
@@ -64,7 +81,16 @@ app.get('/send-push', (req, res) => {
     })
 })
 
-const listener = app.listen(process.env.PORT || 5000, () => {
-  console.log('Your app is listening on port ' + listener.address().port)
-})
-
+mongoose.connect(
+  config.mongo_adm_uri,
+  { useNewUrlParser: true, useCreateIndex: true },
+  err => {
+    if (err) {
+      throw err
+    } else {
+      const listener = app.listen(process.env.PORT || 5000, () => {
+        console.log('Your app is listening on port ' + listener.address().port)
+      })
+    }
+  }
+)
