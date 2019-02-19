@@ -1,19 +1,19 @@
 const keys = {
   default: {
-    mongo_cli_uri: process.env.MONGODB_CLI_URI_DEF,
-    mongo_adm_uri: process.env.MONGODB_ADM_URI_DEF,
+    mongo_cli_uri: process.env.CLIENT_API_URL_LOCAL,
+    mongo_adm_uri: process.env.ADMIN_API_URL_LOCAL,
   },
   development: {
-    mongo_cli_uri: process.env.MONGODB_CLI_URI_DEV,
-    mongo_adm_uri: process.env.MONGODB_ADM_URI_DEV,
+    mongo_cli_uri: process.env.CLIENT_API_URL_DEV,
+    mongo_adm_uri: process.env.ADMIN_API_URL_DEV,
   },
   test: {
-    mongo_cli_uri: process.env.MONGODB_CLI_URI_TEST,
-    mongo_adm_uri: process.env.MONGODB_ADM_URI_TEST,
+    mongo_cli_uri: process.env.CLIENT_API_URL_DEV,
+    mongo_adm_uri: process.env.ADMIN_API_URL_DEV,
   },
   production: {
-    mongo_cli_uri: process.env.MONGODB_CLI_URI_PROD,
-    mongo_adm_uri: process.env.MONGODB_ADM_URI_PROD,
+    mongo_cli_uri: process.env.CLIENT_API_URL_PROD,
+    mongo_adm_uri: process.env.ADMIN_API_URL_PROD,
   },
 }
 
